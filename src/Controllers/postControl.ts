@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { htmlToText } from "html-to-text";
 import dbConnect from "@/utils/mongoose";
+import { models } from "mongoose";
 dotenv.config();
 await dbConnect();
 
@@ -158,6 +159,8 @@ class Posts {
     }
 
     if (!id && userId === undefined) {
+        console.log(models)
+
       //? jika dia homepage saja
       try {
         const totalPosts = await this.#posts.countDocuments(); // Get total number of posts
