@@ -9,8 +9,8 @@ const userSchema: Schema<userType> = new Schema<userType>({
   pp: String,
   ban: Boolean,
   isAdmin: Boolean,
-  followers: [{ type: Types.ObjectId, ref: "user" }],
-  following: [{ type: Types.ObjectId, ref: "user" }],
+  followers: [{ type: Types.ObjectId, ref: "users" }],
+  following: [{ type: Types.ObjectId, ref: "users" }],
   bookmark: [{ type: Types.ObjectId, ref: "posts" }],
   notification: {
     messages: { type: [{ message: String, link: String }], default: [] },
@@ -18,5 +18,5 @@ const userSchema: Schema<userType> = new Schema<userType>({
   },
 });
 
-const userModel: Model<userType> = model("user", userSchema);
+const userModel: Model<userType> = model("users", userSchema);
 export { userModel, userSchema };

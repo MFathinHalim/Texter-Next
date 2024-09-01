@@ -3,8 +3,10 @@ import { mainModel, reportModel } from "../models/post";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { htmlToText } from "html-to-text";
-
+import dbConnect from "@/utils/mongoose";
 dotenv.config();
+await dbConnect();
+
 //function untuk shuffle array
 function shuffleArray(
   array:

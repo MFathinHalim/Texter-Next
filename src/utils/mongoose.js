@@ -1,12 +1,16 @@
 import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const MONGODBURI = process.env.MONGODBURI;
 
 if (!MONGODBURI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local",
-  );
+  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
 }
+
+// Set strict mode globally
+mongoose.set("strict", false);
 
 let cached = global.mongoose;
 
@@ -18,14 +22,15 @@ async function dbConnect() {
   if (cached.conn) {
     return cached.conn;
   }
+
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
     };
-    cached.promise = mongoose.connect(MONGODBURI, opts).then((mongoose) => {
-      return mongoose;
-    });
+
+    cached.promise = mongoose.connect(MONGODBURI, opts).then(mongoose => mongoose);
   }
+
   try {
     cached.conn = await cached.promise;
   } catch (e) {
