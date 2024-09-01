@@ -12398,12 +12398,12 @@ strong {
   color: var(--text) !important;
 }
 .btn-outline-light {
-  border: 1px solid var(--text) !important;
+  border: 0px solid var(--text) !important;
   color: var(--text) !important;
 }
 .btn-outline-light:hover {
   background-color: var(--background) !important;
-  border: 1px solid var(--background) !important;
+  border: 0px solid var(--background) !important;
   color: var(--text) !important;
 }
 

@@ -14,7 +14,9 @@ const followingSlice = createSlice({
   initialState,
   reducers: {
     toggleFollowing(state) {
-      state.isFollowing = !state.isFollowing;
+      console.log(state.isFollowing)
+      if(state.isFollowing) state.isFollowing = false;
+      else state.isFollowing = true
     },
   },
 });

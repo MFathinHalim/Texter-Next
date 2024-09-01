@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 ////////////////////////////////////////////
 import type { Model } from "mongoose";
-import { userModel } from "../models/user";
+import { userModel } from "../models/model";
 import type { Document } from "mongoose";
 import mongoose from "mongoose";
 ///////////////////////////////////////////

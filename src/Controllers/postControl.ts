@@ -1,5 +1,5 @@
 import { type Model, type Document, mongo } from "mongoose";
-import { mainModel, reportModel } from "../models/post";
+import { mainModel, reportModel } from "../models/model";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { htmlToText } from "html-to-text";
@@ -159,8 +159,6 @@ class Posts {
     }
 
     if (!id && userId === undefined) {
-        console.log(models)
-
       //? jika dia homepage saja
       try {
         const totalPosts = await this.#posts.countDocuments(); // Get total number of posts
@@ -543,7 +541,6 @@ class Posts {
 
       // Check if the post was found and deleted
       if (!result) {
-        console.log("Post not found");
         return false;
       }
       return true;
