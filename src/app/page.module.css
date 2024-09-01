@@ -1,0 +1,325 @@
+@import url("https://fonts.googleapis.com/css?family=Mulish:700|Ubuntu:400");
+
+.text-white {
+  color: var(--text) !important;
+}
+.text-info {
+  color: var(--accent2) !important;
+}
+
+/* Style for the active state */
+a.active {
+  border-bottom: 2px solid var(--accent2); /* Adjust color as needed */
+}
+
+.scroll-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent items from wrapping to the next line */
+  padding: 10px; /* Optional: add padding */
+}
+.scroll-item {
+  display: inline-block; /* Make items inline-block to stay in one line */
+  padding: 10px;
+
+  margin-right: 10px; /* Space between items */
+  border-radius: 4px; /* Optional: rounded corners */
+}
+/* Class to hide the navbar when scrolling down */
+@media (max-width: 767px) {
+  .row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scroll-container::-webkit-scrollbar {
+    display: none !important;
+  }
+  .col-12 {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .container {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden;
+  }
+  .navbar.hide {
+    transform: translateY(-100%); /* Move the navbar up */
+  }
+  .navbar.fixed-bottom.hide {
+    transform: translateY(200%); /* Move the navbar down */
+  }
+  .sticky-on-navbar.hide {
+    transform: translateY(-200%); /* Move the navbar up */
+  }
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.3s ease;
+}
+.notif-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--error);
+  border-radius: 50%;
+  top: -5px;
+  right: -5px;
+  border: 2px solid white;
+  display: none; /* Sembunyikan secara default */
+}
+
+.popup-content {
+  padding: 5px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+}
+.popup.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999999;
+}
+.popup .close-btn i {
+  color: #000;
+}
+/* Style for the disabled state */
+a.disabled {
+  pointer-events: none; /* Prevent clicks */
+  opacity: 0.5; /* Dim the link to indicate it's disabled */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+.table-dark-custom {
+  background-color: var(--background2);
+  color: var(--background2);
+}
+.table-dark-custom th,
+.table-dark-custom td {
+  border-color: var(--secondary);
+}
+.border-light,
+.border-secondary {
+  border: 1px solid #96969648 !important;
+}
+
+.post.border-light {
+  border-top: none !important;
+}
+/* Container to make sure the sticky container is within bounds */
+.sticky-container {
+  position: relative;
+}
+.active {
+  font-weight: 700 !important;
+}
+#forYou,
+#following {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sticky-element {
+  position: sticky;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 90%;
+}
+
+.text-warning {
+  color: var(--accent1) !important;
+}
+.text-danger {
+  color: var(--error) !important;
+}
+.text-success {
+  color: var(--success) !important;
+}
+
+.pfp {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.theme-selector {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--card-bg-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+}
+
+.theme-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 1rem;
+}
+
+.theme-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  border: 2px solid var(--text);
+}
+
+.theme-box.light {
+  background-color: #f0f0f0;
+}
+
+.theme-box.dark {
+  background-color: #333;
+}
+
+
+
+.btn-primary {
+  background-color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+  color: white !important;
+}
+.text-primary {
+  color: var(--accent2) !important;
+}
+
+.btn-danger {
+  background-color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  background-color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+  color: #000000 !important;
+}
+
+.btn-success {
+  background-color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+  color: #000000 !important;
+}
+
+.btn-outline-primary,
+.btn-outline-info {
+  color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+}
+
+.btn-outline-danger {
+  color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+}
+
+.btn-outline-success {
+  color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+  color: var(--background) !important;
+}
+
+
+.btn-outline-danger:hover {
+  background-color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+  color: var(--text) !important;
+}
+.btn-outline-light {
+  border: 1px solid var(--text) !important;
+  color: var(--text) !important;
+}
+.btn-outline-light:hover {
+  background-color: var(--background) !important;
+  border: 1px solid var(--background) !important;
+  color: var(--text) !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+  color: var(--background) !important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+  color: var(--background) !important;
+}
+
+.bg-dark {
+  background-color: var(--background) !important;
+}
+.sticky-on-navbar {
+  position: sticky;
+  top: 56px; /* Adjust this value based on your navbar height */
+  z-index: 1020; /* Ensure it's above the navbar if necessary */
+}
+.bg-dark-glass {
+  /* From https://css.glass */
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(7.4px) !important;
+  -webkit-backdrop-filter: blur(7.4px) !important;
+}
+.text-light {
+  color: var(--text) !important;
+}
+.bg-dark2 {
+  background-color: var(--background2) !important;
+}
+.bg-dark3 {
+  background-color: var(--background3) !important;
+}
+
+
+.card:hover,
+.post:hover {
+  background-color: var(--background2) !important;
+}
+.rounded-lg {
+  border-radius: 12px !important;
+}
