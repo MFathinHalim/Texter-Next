@@ -13,7 +13,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false); // State to indicate loading
   const [hasMore, setHasMore] = useState(true); // State to determine if more posts are available
   const [page, setPage] = useState(1); // Current page
-  const [user, setUser]: any = useState(null);
+  const [user, setUser] = useState<any>(null); // User state
+  const [token, setToken] = useState("");
 
   const refreshAccessToken = async () => {
     try {
@@ -40,13 +41,14 @@ export default function Home() {
   useEffect(() => {
     async function fetchUserData() {
       try {
-        const token = await refreshAccessToken();
-        if (!token) {
+        const tokenTemp = await refreshAccessToken();
+        if (!tokenTemp) {
           return;
         }
+        setToken(tokenTemp)
 
         const response = await fetch(`/api/user/check`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${tokenTemp}` },
         });
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
@@ -58,51 +60,51 @@ export default function Home() {
         } else {
           // Handle case where user is banned or check fails
           setUser(null);
-          // Optionally redirect or show a message
         }
       } catch (error) {
         console.error("Error getting token:", error);
-        // Optionally handle error
         setUser(null);
-        //router.push('/login');
       } finally {
         setLoading(false);
       }
     }
-    if(user === null) {
+
+    if (user === null) {
       fetchUserData();
     }
-  });
+  }, [user]);
 
   // Function to fetch posts from the API
   const fetchPosts = useCallback(async (pageNumber: number) => {
     setLoading(true);
     try {
-      console.log(isFollowing)
-      const response = await fetch(`http://localhost:3000/api/post/${isFollowing ? "following" : ""}?page=${pageNumber}&limit=${POSTS_PER_PAGE}`, { method: "GET" });
+      const response = await fetch(`http://localhost:3000/api/post/${isFollowing ? "following" : ""}?page=${pageNumber}&limit=${POSTS_PER_PAGE}`, { method: "GET", headers: { Authorization: `Bearer ${token}` }, });
       const data = await response.json();
-
-      if (data.posts.posts.length === 0) {
+      
+      if (data.posts.length === 0) {
         setHasMore(false);
       }
 
-      setPosts((prevPosts) => [...prevPosts, ...data.posts.posts]);
+      setPosts((prevPosts) => [...prevPosts, ...data.posts]);
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isFollowing]);
 
   // Fetch initial posts
   useEffect(() => {
     fetchPosts(page);
   }, [page, fetchPosts]);
+
   // Clear posts when isFollowing changes
   useEffect(() => {
     setPosts([]);
-    fetchPosts(page);
+    setHasMore(true); // Reset hasMore when isFollowing changes
+    setPage(1); // Reset to first page
   }, [isFollowing]);
+
   // Handle scroll event
   const handleScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading) {
@@ -130,7 +132,7 @@ export default function Home() {
           </h4>
         </div>
         <div className='scroll-container d-flex flex-row align-items-center'>
-          <div className='scroll-item d-flex flex-column text-center align-items-center justify-content-center'>
+        <div className='scroll-item d-flex flex-column text-center align-items-center justify-content-center'>
             <a href='https://kamusrejang.glitch.me/' className='text-decoration-none'>
               <img src='https://www.fathin.my.id/kamus.png' className='rounded-circle border-light p-2' style={{ width: 80, height: 80 }} alt='Logo' />
               <div className='mt-2'>Kamus Bahasa Rejang</div>
@@ -164,7 +166,7 @@ export default function Home() {
       </div>
       {user ? (
         <form className='card post bg-dark text-light p-3 border-light rounded-0' encType='multipart/form-data'>
-          <div className='mb-3'>
+                    <div className='mb-3'>
             <div className='d-flex mb-2'>
               <img className='rounded-circle' style={{ width: "100%", height: "100%", maxWidth: 60, maxHeight: 60 }} id='mypfp' src={user.pp || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt='Card image' />
               <div className='ms-2 mt-0'>

@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
   const headersList = headers();
   const authHeader = headersList.get("authorization");
   const token = authHeader && authHeader.split(" ")[1]; // Extract token from Bearer
-
   // Check if token exists
   if (!token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -26,8 +25,8 @@ export async function GET(req: NextRequest) {
     const userFollowing = await userInstance.checkWhatUserFollowing(checkToken.id);
 
     // Fetch posts data
-    const posts = await postsInstance.getDataByFollowedUsers(userFollowing, page, limit);
-    return NextResponse.json({ posts });
+    const posts: any= await postsInstance.getDataByFollowedUsers(userFollowing, page, limit);
+    return NextResponse.json({ posts: posts.posts });
   } catch (error) {
     console.error("Error fetching posts:", error);
     return NextResponse.json({ error: "An error occurred while fetching posts." }, { status: 500 });

@@ -16,7 +16,8 @@ export async function GET(req: NextRequest) {
 
     // Fetch posts data
     const posts = await postsInstance.getData("", page, limit, undefined, search);
-    return NextResponse.json({ posts });
+    //@ts-ignore
+    return NextResponse.json({ posts: posts.posts });
   } catch (error) {
     console.error("Error fetching posts:", error);
     return NextResponse.json({ error: "An error occurred while fetching posts." }, { status: 500 });
