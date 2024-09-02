@@ -21,14 +21,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       if (sessionStorage.getItem("myToken")) {
         return sessionStorage.getItem("myToken");
       }
-      const response = await fetch("/refresh", {
+      const response = await fetch("/api/refreshToken", {
         method: "POST",
         credentials: "include", // This ensures cookies are sent
       });
       const data = await response.json();
       if (response.ok) {
-        sessionStorage.setItem("myToken", data.accessToken);
-        return data.accessToken;
+        sessionStorage.setItem("myToken", data.token);
+        return data.token;
       } else {
         console.error("Failed to refresh token");
       }
@@ -167,7 +167,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
               <div className="col-lg-6 col-12">
-                {children}
+                { children }
                 <Loading loading={loading} />
               </div>
               <MyFooter />

@@ -20,14 +20,14 @@ export default function Home() {
       if (sessionStorage.getItem("myToken")) {
         return sessionStorage.getItem("myToken");
       }
-      const response = await fetch("/refresh", {
+      const response = await fetch("/api/refreshToken", {
         method: "POST",
         credentials: "include", // This ensures cookies are sent
       });
       const data = await response.json();
       if (response.ok) {
-        sessionStorage.setItem("myToken", data.accessToken);
-        return data.accessToken;
+        sessionStorage.setItem("myToken", data.token);
+        return data.token;
       } else {
         console.error("Failed to refresh token");
       }
@@ -69,8 +69,9 @@ export default function Home() {
         setLoading(false);
       }
     }
-
-    fetchUserData();
+    if(user === null) {
+      fetchUserData();
+    }
   });
 
   // Function to fetch posts from the API
