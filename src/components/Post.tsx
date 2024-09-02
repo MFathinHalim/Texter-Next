@@ -36,6 +36,7 @@ export default function PostComponent({ post }: any) {
     <div className='card bg-dark text-white p-3 rounded-0 border-light'>
       <a href={`/status/${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>
         <div>
+
           {post.repost && (
             <p className='text-secondary mb-1 ms-1'>
               <i className='fa-solid fa-recycle' /> {decodeHTML(post.user.name)} reposted
@@ -43,23 +44,25 @@ export default function PostComponent({ post }: any) {
           )}
           <article className='d-flex pt-2 justify-content-between'>
             <article className='d-flex'>
+              <a href={`/status/${post.user.username}/`} >
               <img className='pfp rounded-circle' src={post.repost ? post.repost.pp : post.user.pp} alt='Profile' />
-              <div className='ms-2'>
+              </a>
+              <a href={`/status/${post.user.username}/`} className='ms-2'>
                 <h5 className='font-weight-bold'>
                   {post.repost ? decodeHTML(post.repost.name) : decodeHTML(post.user.name)}
                   {post.reQuote ? ` Requoted ${decodeHTML(post.reQuote.user.name)}` : ""}
                 </h5>
                 <h5 className='text-secondary'>{post.time}</h5>
-              </div>
+              </a>
+
             </article>
             <button className='btn btn-outline-light border-none rounded-pill ms-2' style={{ border: "0px !important" }}>
               <i className='fa-solid fa-flag' />
             </button>
           </article>
         </div>
-      </a>
       <h3 className='h5 mt-2'>
-        <a href={`/@${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>{renderTitleWithLinks(post.title)}</a>
+        {renderTitleWithLinks(post.title)}
       </h3>
       {post.img &&
         (post.img.includes(".mp4") || post.img.includes(".ogg") ? (
@@ -91,6 +94,7 @@ export default function PostComponent({ post }: any) {
           </a>
         </div>
       )}
+      </a>
       <div className='d-flex'>
         <button className='btn btn-outline-danger rounded-pill' id={`like-btn-${post.id}`}>
           <i className='fa-solid fa-heart' /> {post.like.users.length}
