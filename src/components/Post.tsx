@@ -33,8 +33,8 @@ export default function PostComponent({ post }: any) {
     });
   };
   return (
-    <div className='card bg-dark text-white p-3 post rounded-0 border-light'>
-      <a href={`/@${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>
+    <div className='card bg-dark text-white p-3 rounded-0 border-light'>
+      <a href={`/status/${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>
         <div>
           {post.repost && (
             <p className='text-secondary mb-1 ms-1'>
