@@ -41,6 +41,8 @@ const UserProfile = () => {
       try {
         const userData = await fetchUserData(username);
         setUser(userData.user.user);
+        // Fetch initial posts
+        await fetchPostsData(1);
       } catch (error) {
         console.error('Error loading user data:', error);
         router.push('/');
@@ -59,33 +61,41 @@ const UserProfile = () => {
     setLoadingPosts(true);
     try {
       const postsData = await fetchPosts(username, pageNumber, search);
-      setPosts((prevPosts) => [...prevPosts, ...postsData.posts.posts]);
+      // Only append new posts if they are unique
+      setPosts(prevPosts => {
+        const existingPostIds = new Set(prevPosts.map(post => post.id));
+        //@ts-ignore
+        const newPosts = postsData.posts.posts.filter(post => !existingPostIds.has(post.id));
+        return [...prevPosts, ...newPosts];
+      });
       setHasMorePosts(postsData.posts.posts.length === POSTS_PER_PAGE);
     } catch (error) {
       console.error('Error loading posts:', error);
     } finally {
       setLoadingPosts(false);
     }
-  }, [username, search, loadingPosts, hasMorePosts]);
-
-  // Load initial posts
-  useEffect(() => {
-    fetchPostsData(page); // Load posts for current page
-  }, [page, fetchPostsData]);
+  }, [username, search]);
 
   // Handle scroll to load more posts
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100) {
-        if (!loadingPosts && hasMorePosts) {
-          setPage((prevPage) => prevPage + 1);
-        }
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100) {
+      if (!loadingPosts && hasMorePosts) {
+        setPage(prevPage => prevPage + 1);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loadingPosts, hasMorePosts]);
+
+  // Fetch posts when page changes
+  useEffect(() => {
+    if (page > 1) { // Avoid fetching on initial load
+      fetchPostsData(page);
+    }
+  }, [page, fetchPostsData]);
 
   const handleFollow = async () => {
     // Implement follow functionality here
