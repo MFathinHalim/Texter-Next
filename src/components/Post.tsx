@@ -22,7 +22,7 @@ export default function PostComponent({ post }: any) {
       if (part.startsWith("#")) {
         const tag = part.slice(1); // Remove the '#' character for the URL
         return (
-          <a key={index} href={`/?search=${tag}`} className='text-info'>
+          <a key={index} href={`/search/${tag}`} className='text-info'>
             {part}
           </a>
         );
@@ -33,8 +33,8 @@ export default function PostComponent({ post }: any) {
     });
   };
   return (
-    <div className='card bg-dark text-white p-3 rounded-0 border-light'>
-      <a href={`/status/${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>
+    <div className='card post bg-dark text-white p-3 rounded-0 border-light'>
+      <a href={`/${post.user.username}/${post.id.includes("txtr") ? post._id : post.id}`}>
         <div>
 
           {post.repost && (
@@ -44,10 +44,10 @@ export default function PostComponent({ post }: any) {
           )}
           <article className='d-flex pt-2 justify-content-between'>
             <article className='d-flex'>
-              <a href={`/status/${post.user.username}/`} >
+              <a href={`/${post.user.username}/`} >
               <img className='pfp rounded-circle' src={post.repost ? post.repost.pp : post.user.pp} alt='Profile' />
               </a>
-              <a href={`/status/${post.user.username}/`} className='ms-2'>
+              <a href={`/${post.user.username}/`} className='ms-2'>
                 <h5 className='font-weight-bold'>
                   {post.repost ? decodeHTML(post.repost.name) : decodeHTML(post.user.name)}
                   {post.reQuote ? ` Requoted ${decodeHTML(post.reQuote.user.name)}` : ""}

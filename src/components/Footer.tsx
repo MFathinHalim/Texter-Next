@@ -42,7 +42,7 @@ function MyFooter() {
           trendingtext.textContent = "Hashtag";
           listItem.appendChild(trendingtext);
 
-          postLink.href = `/?search=${post}`;
+          postLink.href = `/search/${post}`;
           postLink.classList.add("text-white", "text-decoration-none", "h5");
           postLink.textContent = "#" + post;
           listItem.appendChild(postLink);
@@ -90,7 +90,6 @@ function MyFooter() {
 
   return (
     <>
-      <div className="col-12 col-lg-3 h-100 sticky-element">
         <div className="card bg-dark text-white border-light d-none d-lg-flex rounded-lg">
           <div className="card-body">
             <h5 className="h5 card-title mb-3" style={{ fontWeight: 900 }}>
@@ -119,7 +118,6 @@ function MyFooter() {
             © 2024 Texter by Fathin
           </a>
         </div>
-      </div>
       <div className="navbar navbar-dark bg-dark-glass navbar-expand d-lg-none d-xl-none" style={{ opacity: 0, width: 1 }}>
         <ul className="navbar-nav nav-justified w-100">
           <li className="nav-item">

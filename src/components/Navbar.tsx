@@ -3,12 +3,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFollowing } from '../store/followingSlice';
 import { RootState, AppDispatch } from '../store/store';
-
-
+import { usePathname } from 'next/navigation'; // Import usePathname
 function MyNavbar() {
   const dispatch = useDispatch<AppDispatch>();
   const isFollowing = useSelector((state: RootState) => state.following.isFollowing);
-
+  const pathName = usePathname()
+  const isHomePage = pathName === '/';
   return (
     <nav
       className="navbar container navbar-dark sticky-top bg-dark-glass"
@@ -26,7 +26,7 @@ function MyNavbar() {
           id="followingfollowers"
           className="text-light border-0 pb-0 rounded-0 mx-auto"
         >
-          <div className="d-flex">
+          <div className={`d-flex ${!isHomePage ? 'd-none' : ''}`}>
             <a
               id="forYou"
               className={`bg-0 rounded-0 flex-fill text-center ${!isFollowing ? 'active' : ''}`}
