@@ -219,8 +219,8 @@ class Posts {
       const limit = 5;
       const skip = page > 0 ? (page - 1) * limit : 0;
       let posts = await this.#posts
-        .find({})
-        .populate({
+      .find({user: userId})
+      .populate({
           path: "user",
           select: "-password",
         })
@@ -239,7 +239,6 @@ class Posts {
         .skip(skip)
         .sort({ $natural: -1 })
         .exec();
-      posts = posts.filter((post) => post.user?.id === userId && !post.replyTo); //di filter yang sama dengan user
       return { posts };
     } else {
       //? Jika detail post

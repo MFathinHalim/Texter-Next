@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, { params }: { params: { username: st
 
   try {
     const user: userType | any = await userClass.checkUserDetails(username, myname?.toString() || "");
-    const posts = await postsClass.getData("", page, limit, user.id);
+    const posts = await postsClass.getData("", page, limit, user.user._id);
     return NextResponse.json({ posts });
   } catch (error) {
     console.error('Error fetching posts:', error);

@@ -9,7 +9,6 @@ export async function GET(req: NextRequest, { params }: { params: { username: st
 
   try {
     const user = await userClass.checkUserDetails(username, myname);
-    console.log(user)
     if (user) {
       return NextResponse.json({
         user,

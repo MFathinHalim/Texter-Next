@@ -4,6 +4,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Account from '@/components/Account';
 import PostComponent from '@/components/Post';
+import Loading from '@/components/Loading';
+
+const POSTS_PER_PAGE = 5;
 
 const fetchUserData = async (username: string) => {
   const res = await fetch(`/api/${username}`);
@@ -12,7 +15,7 @@ const fetchUserData = async (username: string) => {
 };
 
 const fetchPosts = async (username: string, page: number, search: string) => {
-  const res = await fetch(`/api/post/user/${username}?page=${page}&limit=10${search ? `&search=${search}` : ''}`);
+  const res = await fetch(`/api/post/user/${username}?page=${page}&limit=${POSTS_PER_PAGE}${search ? `&search=${search}` : ''}`);
   if (!res.ok) throw new Error('Failed to fetch posts');
   return res.json();
 };
@@ -20,77 +23,81 @@ const fetchPosts = async (username: string, page: number, search: string) => {
 const UserProfile = () => {
   const [user, setUser] = useState<userType | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
   const [search, setSearch] = useState<string>('');
   const [page, setPage] = useState(1);
-  const [hasMorePosts, setHasMorePosts] = useState(true);
-  
+
   const params = useParams();
   const router = useRouter();
   const username = params.username as string;
 
+  // Fetch user data once
   useEffect(() => {
     if (!username) return;
 
-    const loadData = async () => {
+    const loadUserData = async () => {
       try {
-        setLoading(true);
-
         const userData = await fetchUserData(username);
         setUser(userData.user.user);
-
-        const postsData = await fetchPosts(username, page, search);
-        setPosts(postsData.posts.posts);
-        setHasMorePosts(postsData.posts.posts.length > 0);
       } catch (error) {
-        console.error('Error loading data:', error);
+        console.error('Error loading user data:', error);
         router.push('/');
       } finally {
-        setLoading(false);
+        setLoadingUser(false);
       }
     };
 
-    loadData();
-  }, [username, search, page]);
+    loadUserData();
+  }, [username, router]);
 
-  const loadMorePosts = useCallback(async () => {
-    if (!hasMorePosts || loadingMore) return;
+  // Fetch posts data
+  const fetchPostsData = useCallback(async (pageNumber: number) => {
+    if (loadingPosts || !hasMorePosts) return;
 
-    setLoadingMore(true);
+    setLoadingPosts(true);
     try {
-      const postsData = await fetchPosts(username, page + 1, search);
-      setPosts(prevPosts => [...prevPosts, ...postsData.posts.posts]);
-      setPage(prevPage => prevPage + 1);
-      setHasMorePosts(postsData.posts.posts.length > 0);
+      const postsData = await fetchPosts(username, pageNumber, search);
+      setPosts((prevPosts) => [...prevPosts, ...postsData.posts.posts]);
+      setHasMorePosts(postsData.posts.posts.length === POSTS_PER_PAGE);
     } catch (error) {
-      console.error('Error loading more posts:', error);
+      console.error('Error loading posts:', error);
     } finally {
-      setLoadingMore(false);
+      setLoadingPosts(false);
     }
-  }, [username, page, search, hasMorePosts, loadingMore]);
+  }, [username, search, loadingPosts, hasMorePosts]);
 
+  // Load initial posts
+  useEffect(() => {
+    fetchPostsData(page); // Load posts for current page
+  }, [page, fetchPostsData]);
+
+  // Handle scroll to load more posts
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loadingMore) return;
-      loadMorePosts();
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100) {
+        if (!loadingPosts && hasMorePosts) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [loadMorePosts, loadingMore]);
+  }, [loadingPosts, hasMorePosts]);
 
   const handleFollow = async () => {
     // Implement follow functionality here
   };
 
-  if (loading) {
+  if (loadingUser) {
     return (
       <div id="loading-screen">
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
-        <p>Loading...</p>
+        <p>Loading user data...</p>
       </div>
     );
   }
@@ -102,9 +109,9 @@ const UserProfile = () => {
   return (
     <div>
       <Account
-        user={user} 
-        username={username} 
-        handleFollow={handleFollow} 
+        user={user}
+        username={username}
+        handleFollow={handleFollow}
       />
       <div id="post-container">
         {posts.length > 0 ? (
@@ -114,16 +121,10 @@ const UserProfile = () => {
         ) : (
           <p>No posts available</p>
         )}
-        {loadingMore && (
-          <div id="loading-more">
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Loading more...</span>
-            </div>
-          </div>
+        {loadingPosts && (
+          <Loading />
         )}
       </div>
-
-      <footer> {/* Implement footer here */} </footer>
     </div>
   );
 };
