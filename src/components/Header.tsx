@@ -4,15 +4,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function MyHeader() {
-  const [user, setUser]: any = useState(null);
+  const [user, setUser] = useState<any>(null);
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [mutuals, setMutuals] = useState<any[]>([]);
   const pathname = usePathname(); // Get the current pathname
   const router = useRouter(); // Hook for programmatic navigation
+
   function applyTheme(theme: string) {
     localStorage.setItem("theme", theme);
-    console.log(theme);
     if (theme === "auto") {
-      // If data-theme is auto, check the color scheme preference
       if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         document.documentElement.setAttribute("data-theme", "dark");
       } else {
@@ -23,13 +24,11 @@ function MyHeader() {
     document.documentElement.setAttribute("data-theme", theme);
   }
 
-  // Load the theme from localStorage on page load
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "auto";
     applyTheme(savedTheme);
   }, []);
 
-  // Function to refresh access token
   const refreshAccessToken = async () => {
     try {
       if (sessionStorage.getItem("myToken")) {
@@ -37,7 +36,7 @@ function MyHeader() {
       }
       const response = await fetch("/api/refreshToken", {
         method: "POST",
-        credentials: "include", // This ensures cookies are sent
+        credentials: "include",
       });
       const data = await response.json();
       if (response.ok) {
@@ -74,22 +73,38 @@ function MyHeader() {
         if (!check.check) {
           setUser(check.user);
         } else {
-          // Handle case where user is banned or check fails
           setUser(null);
-          // Optionally redirect or show a message
         }
+
+        // Fetch mutuals data
+        const mutualsResponse = await fetch(`/api/user/mutuals`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (mutualsResponse.ok) {
+          const mutualsData = await mutualsResponse.json();
+          setMutuals(mutualsData.users || []);
+        } else {
+          console.error("Failed to fetch mutuals data");
+        }
+
       } catch (error) {
         console.error("Error getting token:", error);
-        // Optionally handle error
         setUser(null);
-        //router.push('/login');
       } finally {
         setLoading(false);
       }
     }
 
     fetchUserData();
-  }, [router]);
+  }, [router, pathname]);
+
+  const handleSearch = (event: any) => {
+    event.preventDefault();
+    if (query.trim()) {
+      router.push(`/search/${encodeURIComponent(query.trim())}`);
+    }
+  };
+
   return (
     <>
       <div className='d-flex'>
@@ -99,7 +114,21 @@ function MyHeader() {
         </a>
         <div className='card bg-dark text-white ms-2 border-light d-none d-lg-flex rounded-lg' style={{ maxWidth: 300 }}>
           <div className='card-body'>
-            <input type='text' autoComplete='off' id='searchInput' className='form-control' placeholder='Search' />
+            <input
+              type='text'
+              autoComplete='off'
+              id='searchInput'
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSearch(e as unknown as React.FormEvent<HTMLFormElement>);
+                }
+              }}
+              className='form-control'
+              placeholder='Search'
+            />
           </div>
         </div>
       </div>
@@ -152,7 +181,31 @@ function MyHeader() {
           <h5 className='h5 card-title mb-3' style={{ fontWeight: 900 }}>
             Mutuals
           </h5>
-          <div id='follower' />
+          <div id='follower'>
+            {mutuals.length > 0 ? (
+              mutuals.map((mutual: any) => (
+                <div key={mutual.id} className='d-flex align-items-center mb-3'>
+                  <img
+                    className='rounded-circle'
+                    style={{ width: 50, height: 50 }}
+                    src={mutual.pp || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                    alt={mutual.name}
+                  />
+                  <div className="d-flex flex-column ms-2">
+                  <a
+                    href={`/${mutual.username}`} // Use mutual.username for correct URL
+                    className="text-white text-decoration-none h5 mb-1" // Add CSS classes directly
+                  >
+                    {mutual.name}
+                  </a>                    
+                  <p className="text-secondary mb-0">@{mutual.username}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No mutuals found.</p>
+            )}
+          </div>
         </div>
       </div>
     </>

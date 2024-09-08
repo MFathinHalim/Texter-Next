@@ -103,7 +103,7 @@ export default function PostComponent({ post }: any) {
           <i className='fa-solid fa-comment' />
         </a>
         <button className='btn btn-outline-success rounded-pill ms-2'>
-          <i className='fa-solid fa-recycle' />
+        <i className="fa-solid fa-retweet"></i>
         </button>
         <button className='btn btn-outline-info rounded-pill ms-2'>
           <i className='fa-solid fa-share' />

@@ -178,7 +178,7 @@ export default function Home() {
             </div>
             <textarea style={{ height: 70, fontSize: "larger" }} className='form-control border-0' id='title' name='title' placeholder="What's Happening?!" defaultValue={""} />
           </div>
-          <img style={{ borderRadius: "2% !important" }} className='mb-3 d-none' id='previewForm' />
+          <img style={{ borderRadius: "2% !important" }} className='mb-3' id='previewForm' />
           <video id='previewForm' height={450} className='mb-3 border-light d-none' loop style={{ borderRadius: "2% !important" }} controls>
             <source id='videoPreview' type='video/mp4' />
           </video>

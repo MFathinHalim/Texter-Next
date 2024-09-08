@@ -107,7 +107,7 @@ export default function Search() {
 
   return (
     <>
-      <div className='card rounded-lg bg-dark border-light text-white'>
+      <div className='card rounded-0 bg-dark border-light text-white'>
         <div className='p-3'>
           <h4>Search Posts</h4>
           <form onSubmit={handleSearchSubmit}>
