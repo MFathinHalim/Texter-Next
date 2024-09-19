@@ -13,10 +13,8 @@ export async function GET(req: NextRequest) {
     const page: number = parseInt(url.searchParams.get("page") || "1", 10);
     const limit: number = 5; // Default limit
     const search: string = url.searchParams.get("search") || "";
-    console.log(search)
     if(search !== ""){
       const posts = await postsInstance.getData("", page, limit, undefined, search);
-      console.log(posts)
       //@ts-ignore
       return NextResponse.json({ posts: posts.posts });
     }

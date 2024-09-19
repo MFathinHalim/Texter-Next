@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   // Retrieve the 'refreshtoken' cookie
   const refreshToken = req.cookies.get('refreshtoken');
-    console.log(refreshToken?.value)
   if (!refreshToken?.value) {
     return NextResponse.json({ error: 'No refresh token found' }, { status: 401 });
   }

@@ -125,7 +125,7 @@ export default function Home() {
   return (
     <>
       <div className='card rounded-0 bg-dark border-light text-white'>
-        <div className='ps-3 px-3 pt-3 d-flex justify-content-between'>
+        <div className='ps-3 px-3 pt-3 d-flex justify-content-between' id="ads">
           <h4>Explore Fathin’s apps.</h4>
           <h4>
             <i className='fa-solid fa-rectangle-ad' />

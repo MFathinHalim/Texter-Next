@@ -49,6 +49,7 @@ function MyFooter() {
 
   return (
     <>
+    
       <div className="card bg-dark text-white border-light d-none d-lg-flex rounded-lg">
         <div className="card-body">
           <h5 className="h5 card-title mb-3" style={{ fontWeight: 900 }}>

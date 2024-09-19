@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container">
             <MyNavbar />
             <div className="row no-gutters">
-            <div className='col-12 col-lg-3 h-100 sticky-element' id='col-lb-2'>
+            <div className='col-12 col-lg-3 h-100 pt-0 mt-0' id='col-lb-2'>
               <MyHeader />
             </div>
               <div className="col-lg-6 col-12">
