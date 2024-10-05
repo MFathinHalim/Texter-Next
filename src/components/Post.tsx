@@ -48,10 +48,10 @@ export default function PostComponent({ post }: any) {
               <img className='pfp rounded-circle' src={post.repost ? post.repost.pp : post.user.pp} alt='Profile' />
               </a>
               <a href={`/${post.user.username}/`} className='ms-2'>
-                <h5 className='font-weight-bold'>
+                <h4 className='font-weight-bold h5'>
                   {post.repost ? decodeHTML(post.repost.name) : decodeHTML(post.user.name)}
                   {post.reQuote ? ` Requoted ${decodeHTML(post.reQuote.user.name)}` : ""}
-                </h5>
+                </h4>
                 <h5 className='text-secondary'>{post.time}</h5>
               </a>
 
@@ -82,7 +82,7 @@ export default function PostComponent({ post }: any) {
                 <h5 className='text-secondary'>{post.reQuote.time}</h5>
               </div>
             </article>
-            <h3 className='h4 mt-2'>{renderTitleWithLinks(post.title)}</h3>
+            <h3 className='h5 mt-2'>{renderTitleWithLinks(post.reQuote.title)}</h3>
             {post.reQuote.img &&
               (post.reQuote.img.includes(".mp4") || post.reQuote.img.includes(".ogg") ? (
                 <video height={450} className='border-light' loop style={{ borderRadius: "2% !important", width: "100%" }} controls>

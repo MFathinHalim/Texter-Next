@@ -109,6 +109,7 @@ function MyHeader() {
 
         const dynamicTop = 1000; // Adjust this value if needed
         if (rect.bottom < viewportHeight) {
+          //@ts-ignoreb
           el.style.top = `${viewportHeight - dynamicTop}px`; // Adjust positioning relative to viewport height
         }
       });
