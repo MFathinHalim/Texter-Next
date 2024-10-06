@@ -1,0 +1,471 @@
+@import url("https://fonts.googleapis.com/css?family=Mulish:700|Ubuntu:400");
+
+/*# sourceMappingURL=bootstrap.css.map */
+:root {
+  --background3: #f7f5feef;
+  --background2: rgba(237, 235, 241, 0.322);
+  --text2: #000000;
+  --text: #12121298;
+  --background: #f5f8fa;
+  --glass-bg: #f5f8fad1;
+  --secondary: #b4b3b7;
+  --primary: #393e46;
+  --accent1: #efb120;
+  --accent2: #1da1f2;
+  --success: rgb(0, 186, 124);
+  --error: rgb(249, 24, 128);
+}
+[data-theme="dark"] {
+  --text: #ededed;
+  --text2: #b6b6b6;
+  --background: #000000;
+  --background2: #12121298;
+  --background3: #f7f5fe;
+  --primary: #f8f6fe;
+  --secondary: #393e46;
+  --accent1: #efbd46;
+  --accent2: #1da1f2;
+  --success: rgb(0, 186, 124);
+  --error: rgb(249, 24, 128);
+  --glass-bg: rgba(18, 18, 18, 0.49);
+}
+[data-theme="dim"] {
+  --text: #ededed;
+  --text2: #b6b6b6;
+  --background: rgb(21, 32, 43);
+  --background2: rgb(20, 30, 41);
+  --background3: #f7f5fe;
+  --primary: #f8f6fe;
+  --secondary: #393e46;
+  --accent1: #efbd46;
+  --accent2: #3aaaef;
+  --success: rgb(0, 203, 136);
+  --error: rgb(255, 45, 143);
+  --glass-bg: rgba(21, 32, 43, 0.49);
+}
+
+div>.text-white, div.text-white, div.text-light, div>.text-light, h3.text-light {
+  color: var(--text) !important;
+}
+a.text-info, a.text-info {
+  color: var(--accent2) !important;
+}
+
+/* Style for the active state */
+a.active {
+  border-bottom: 2px solid var(--accent2); /* Adjust color as needed */
+}
+/* Initial state of the navbar */
+div,
+nav {
+  transition: transform 0.2s ease-in-out; /* Smooth transition for sliding effect */
+}
+.scroll-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent items from wrapping to the next line */
+  padding: 10px; /* Optional: add padding */
+}
+.scroll-item {
+  display: inline-block; /* Make items inline-block to stay in one line */
+  padding: 10px;
+
+  margin-right: 10px; /* Space between items */
+  border-radius: 4px; /* Optional: rounded corners */
+}
+/* Class to hide the navbar when scrolling down */
+@media (max-width: 767px) {
+  h3 {
+    font-size: large !important; /* 22.56px */
+  }
+  .row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .scroll-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scroll-container::-webkit-scrollbar {
+    display: none !important;
+  }
+  .col-12 {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .container {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden;
+  }
+  .navbar.hide {
+    transform: translateY(-100%); /* Move the navbar up */
+  }
+  .navbar.fixed-bottom.hide {
+    transform: translateY(200%); /* Move the navbar down */
+  }
+  .sticky-on-navbar.hide {
+    transform: translateY(-200%); /* Move the navbar up */
+  }
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.3s ease;
+}
+.notif-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--error);
+  border-radius: 50%;
+  top: -5px;
+  right: -5px;
+  border: 2px solid white;
+  display: none; /* Sembunyikan secara default */
+}
+
+.popup-content {
+  padding: 5px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+}
+.popup.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999999;
+}
+.popup .close-btn i {
+  color: #000;
+}
+/* Style for the disabled state */
+a.disabled {
+  pointer-events: none; /* Prevent clicks */
+  opacity: 0.5; /* Dim the link to indicate it's disabled */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
+.table-dark-custom {
+  background-color: var(--background2);
+  color: var(--background2);
+}
+.table-dark-custom th,
+.table-dark-custom td {
+  border-color: var(--secondary) !important;
+}
+div>.border-light,
+div>.border-secondary,
+a>.border-light,
+div.border-secondary {
+  border: 1px solid #96969648 !important;
+}
+
+.post.border-light {
+  border-top: none !important;
+}
+/* Container to make sure the sticky container is within bounds */
+.sticky-container {
+  position: relative;
+}
+.active {
+  font-weight: 700 !important;
+}
+#forYou,
+#following {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sticky-element {
+  position: sticky;
+}
+img {
+  object-fit: cover !important;
+  border-radius: 12px !important;
+  max-height: 700px !important;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  opacity: 90%;
+}
+
+.text-warning {
+  color: var(--accent1) !important;
+}
+.text-danger {
+  color: var(--error) !important;
+}
+.text-success {
+  color: var(--success) !important;
+}
+
+.pfp {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+h4 {
+  font-family: "Mulish" !important;
+}
+
+body {
+  background: var(--background) !important;
+  color: var(--text) !important;
+  font-family: "Ubuntu" !important;
+}
+.theme-selector {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--card-bg-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+}
+
+.theme-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 1rem;
+}
+
+.theme-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  border: 2px solid var(--text) !important;
+}
+
+.theme-box.light {
+  background-color: #f0f0f0;
+}
+
+.theme-box.dark {
+  background-color: #333;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked + .theme-label .theme-box {
+  border-color: #007bff; /* Highlight color for selected option */
+}
+
+input[type="radio"]:checked + .theme-label {
+  font-weight: bold;
+}
+
+a {
+  color: var(--text) !important;
+  text-decoration: none !important;
+}
+
+.btn-primary {
+  background-color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+  color: white !important;
+}
+.text-primary {
+  color: var(--accent2) !important;
+}
+
+.btn-danger {
+  background-color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  background-color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+  color: #000000 !important;
+}
+
+.btn-success {
+  background-color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+  color: #000000 !important;
+}
+
+.btn-outline-primary,
+.btn-outline-info {
+  color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+}
+
+.btn-outline-danger {
+  color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+}
+
+.btn-outline-success {
+  color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent2) !important;
+  border: 1px solid var(--accent2) !important;
+  color: var(--background) !important;
+}
+strong {
+  font-size: larger;
+  font-weight: bolder;
+}
+::-webkit-scrollbar {
+  height: 2px !important;
+}
+::-webkit-scrollbar:hover {
+  height: 10px !important;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.125); 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--secondary); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary); 
+}
+
+
+.btn-outline-danger:hover {
+  background-color: var(--error) !important;
+  border: 1px solid var(--error) !important;
+  color: var(--text) !important;
+}
+.btn-outline-light {
+  border: 0px solid var(--text) !important;
+  color: var(--text) !important;
+}
+.btn-outline-light:hover {
+  background-color: var(--background) !important;
+  border: 0px solid var(--background) !important;
+  color: var(--text) !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--accent1) !important;
+  border: 1px solid var(--accent1) !important;
+  color: var(--background) !important;
+}
+
+.btn-outline-success:hover {
+  background-color: var(--success) !important;
+  border: 1px solid var(--success) !important;
+  color: var(--background) !important;
+}
+
+img:not(.rounded-circle) {
+  max-width: 100% !important;
+}
+
+textarea,
+input {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: 0px solid var(--accent2) !important;
+  color: var(--text) !important;
+}
+
+::placeholder {
+  color: var(--text) !important;
+  opacity: 40% !important;
+}
+
+div.bg-dark, div>.bg-dark {
+  background-color: var(--background) !important;
+}
+.sticky-on-navbar {
+  position: sticky;
+  top: 56px; /* Adjust this value based on your navbar height */
+  z-index: 1020; /* Ensure it's above the navbar if necessary */
+}
+.fixed-on-navbar {
+  position: fixed;
+  top: 6vh; /* Menggunakan 5vh untuk memastikan elemen berada di bawah navbar, disesuaikan dengan tinggi viewport */
+  width: 16vw; /* Atur lebar maksimum menggunakan vw agar lebih responsif */
+  z-index: 1020; /* Tetap gunakan z-index agar berada di atas navbar jika diperlukan */
+}
+
+.bg-dark-glass {
+  /* From https://css.glass */
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(7.4px) !important;
+  -webkit-backdrop-filter: blur(7.4px) !important;
+}
+.text-light {
+  color: var(--text) !important;
+}
+.bg-dark2 {
+  background-color: var(--background2) !important;
+}
+.bg-dark3 {
+  background-color: var(--background3) !important;
+}
+
+html {
+  font-size: 100% !important;
+} /* 16px */
+
+h1 {
+  font-size: 5.652rem !important; /* 90.4px */
+}
+h2 {
+  font-size: 3.997rem !important; /* 64px */
+}
+
+h3 {
+  font-size: larger; /* 22.56px */
+}
+
+small {
+  font-size: 0.707rem !important; /* 11.36px */
+}
+
+.card:hover,
+.post:hover {
+  background-color: var(--background2) !important;
+}
+.rounded-lg {
+  border-radius: 12px !important;
+}

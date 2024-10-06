@@ -122,12 +122,6 @@ export default function Settings() {
       headers: { Authorization: `Bearer ${token}` }, // Use token in request headers
       body: formData,
     });
-
-    if (response.ok) {
-      alert("Profile updated!");
-    } else {
-      console.error("Profile update failed");
-    }
   };
 
   const handleThemeChange = (theme: string) => {

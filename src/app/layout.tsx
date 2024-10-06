@@ -1,5 +1,5 @@
 "use client";
-import "./globals.css";
+import "./styles/globals.css";
 import MyNavbar from "@/components/Navbar";
 import MyFooter from "@/components/Footer";
 import { Inter } from "next/font/google";
@@ -7,16 +7,16 @@ const inter = Inter({ subsets: ["latin"] });
 import { Provider } from 'react-redux';
 import { store } from "@/store/store";
 import MyHeader from "@/components/Header";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/globals.css'; // Pastikan ini diimpor setelah Bootstrap
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+
   return (
     <html lang="en">
       <Provider store={store}>
         <head>
-          <script
-            src="https://kit.fontawesome.com/f72e788797.js"
-            crossOrigin="anonymous"
-          ></script>
         </head>
         <body className={inter.className}>
           <div className="container">

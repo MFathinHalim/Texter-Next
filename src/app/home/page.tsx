@@ -4,6 +4,8 @@ import { RootState } from "../../store/store";
 import { useEffect, useState, useCallback } from "react";
 import PostComponent from "@/components/Post";
 import Loading from "@/components/Loading";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFile, faRectangleAd } from '@fortawesome/free-solid-svg-icons';
 
 const POSTS_PER_PAGE = 10; // Number of posts to load per request
 
@@ -128,11 +130,11 @@ export default function Home() {
         <div className='ps-3 px-3 pt-3 d-flex justify-content-between' id="ads">
           <h4>Explore Fathin’s apps.</h4>
           <h4>
-            <i className='fa-solid fa-rectangle-ad' />
+            <FontAwesomeIcon icon={faRectangleAd} />
           </h4>
         </div>
         <div className='scroll-container d-flex flex-row align-items-center'>
-        <div className='scroll-item d-flex flex-column text-center align-items-center justify-content-center'>
+          <div className='scroll-item d-flex flex-column text-center align-items-center justify-content-center'>
             <a href='https://kamusrejang.glitch.me/' className='text-decoration-none'>
               <img src='https://www.fathin.my.id/kamus.png' className='rounded-circle border-light p-2' style={{ width: 80, height: 80 }} alt='Logo' />
               <div className='mt-2'>Kamus Bahasa Rejang</div>
@@ -166,7 +168,7 @@ export default function Home() {
       </div>
       {user ? (
         <form className='card post bg-dark text-light p-3 border-light rounded-0' encType='multipart/form-data'>
-                    <div className='mb-3'>
+          <div className='mb-3'>
             <div className='d-flex mb-2'>
               <img className='rounded-circle' style={{ width: "100%", height: "100%", maxWidth: 60, maxHeight: 60 }} id='mypfp' src={user.pp || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt='Card image' />
               <div className='ms-2 mt-0'>
@@ -185,7 +187,7 @@ export default function Home() {
           <div className='d-flex justify-content-between'>
             <input type='file' className='form-control d-none' id='imgForm' name='image' />
             <label htmlFor='imgForm' className='btn btn-outline-secondary rounded-pill p-3 pt-2 pb-2' style={{ fontSize: "larger" }}>
-              <i className='fa-solid fa-file' />
+              <FontAwesomeIcon icon={faFile} />
             </label>
             <button type='submit' className='btn btn-primary rounded-pill p-4 pt-2 pb-2' style={{ fontSize: "larger" }}>
               Post

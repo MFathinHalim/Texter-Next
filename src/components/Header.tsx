@@ -2,6 +2,8 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
+import { faHome, faMagnifyingGlass, faBookmark, faClapperboard, faBell } from '@fortawesome/free-solid-svg-icons'; // Import icons
 
 function MyHeader() {
   const [user, setUser] = useState<any>(null);
@@ -107,7 +109,7 @@ function MyHeader() {
         const rect = el.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
 
-        const dynamicTop = 1000; // Adjust this value if needed
+        const dynamicTop = 1200; // Adjust this value if needed
         if (rect.bottom < viewportHeight) {
           //@ts-ignoreb
           el.style.top = `${viewportHeight - dynamicTop}px`; // Adjust positioning relative to viewport height
@@ -135,31 +137,31 @@ function MyHeader() {
             <div className='card-body p-0'>
               <div>
                 <div className='p-3 pb-2 d-flex align-items-center'>
-                  <i className='fa-solid h4 fa-home me-2' />
+                  <FontAwesomeIcon icon={faHome} className="h4 me-2" />
                   <a href='/home' className='h4 mb-0'>
                     Home
                   </a>
                 </div>
                 <div className='p-3 pb-2 d-flex align-items-center'>
-                  <i className='fa-solid h4 fa-magnifying-glass me-2'></i>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} className="h4 me-2" />
                   <a href='/search' className='h4 mt-0'>
                     Search
                   </a>
                 </div>
                 <div className='p-3 pb-2 d-flex align-items-center'>
-                  <i className='fa-solid h4 fa-bookmark me-3' />
+                  <FontAwesomeIcon icon={faBookmark} className="h4 me-3" />
                   <a href='/bookmark' className='h4 mt-0'>
                     Saved
                   </a>
                 </div>
                 <div className='p-3 pb-2 d-flex align-items-center'>
-                  <i className='fa-solid h4 fa-clapperboard me-3' />
+                  <FontAwesomeIcon icon={faClapperboard} className="h4 me-3" />
                   <a href='/videos' className='h4 mt-0'>
                     Videos
                   </a>
                 </div>
                 <div className='p-3 pb-2 d-flex align-items-center'>
-                  <i className='fa-solid h4 fa-bell me-3' />
+                  <FontAwesomeIcon icon={faBell} className="h4 me-3" />
                   <a className='h4 mt-0'>Notification</a>
                 </div>
               </div>
@@ -226,7 +228,7 @@ function MyHeader() {
         </div>
         </div>
 
-      </div>
+        </div>
     </>
   );
 }

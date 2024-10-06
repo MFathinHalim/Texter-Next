@@ -3,12 +3,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFollowing } from '../store/followingSlice';
 import { RootState, AppDispatch } from '../store/store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { usePathname } from 'next/navigation'; // Import usePathname
+import { faClapperboard } from '@fortawesome/free-solid-svg-icons';
 function MyNavbar() {
   const dispatch = useDispatch<AppDispatch>();
   const isFollowing = useSelector((state: RootState) => state.following.isFollowing);
   const pathName = usePathname()
-  const isHomePage = pathName === '/';
+  const isHomePage = pathName === '/home';
   return (
     <nav
       className="navbar container navbar-dark sticky-top bg-dark-glass"
@@ -48,7 +50,7 @@ function MyNavbar() {
         style={{ fontSize: "larger", border: "none" }}
         href="/video"
       >
-        <i className="fa-solid fa-clapperboard" />
+        <FontAwesomeIcon icon={faClapperboard} />
       </a>
     </nav>
     
