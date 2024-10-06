@@ -80,7 +80,7 @@ export default function Home() {
   const fetchPosts = useCallback(async (pageNumber: number) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/post/${isFollowing ? "following" : ""}?page=${pageNumber}&limit=${POSTS_PER_PAGE}`, { method: "GET", headers: { Authorization: `Bearer ${token}` }, });
+      const response = await fetch(`/api/post/${isFollowing ? "following" : ""}?page=${pageNumber}&limit=${POSTS_PER_PAGE}`, { method: "GET", headers: { Authorization: `Bearer ${token}` }, });
       const data = await response.json();
       
       if (data.posts.length === 0) {
