@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 import { Provider } from 'react-redux';
 import { store } from "@/store/store";
 import MyHeader from "@/components/Header";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './styles/globals.css'; // Pastikan ini diimpor setelah Bootstrap
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

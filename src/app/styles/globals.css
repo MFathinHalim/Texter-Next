@@ -433,7 +433,7 @@ div.bg-dark, div>.bg-dark {
   backdrop-filter: blur(7.4px) !important;
   -webkit-backdrop-filter: blur(7.4px) !important;
 }
-.text-light {
+.text-light, button.text-light {
   color: var(--text) !important;
 }
 .bg-dark2 {

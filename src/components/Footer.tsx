@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faMagnifyingGlass, faPlus, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function MyFooter() {
   const [trendingPosts, setTrendingPosts] = useState<string[]>([]);
@@ -54,8 +56,7 @@ function MyFooter() {
           <h5 className='h5 card-title mb-2' style={{ fontWeight: 900 }}>
             Support the web
           </h5>
-          <p className='mb-2' style={{fontWeight:200, fontSize: "medium"}}>We have limited budget for this web, your help can really help us.</p>
-
+          <p className='mb-2' style={{fontWeight: 200, fontSize: "medium"}}>We have limited budget for this web, your help can really help us.</p>
           <a className='btn btn-primary rounded-pill ps-3 px-3'>Support Us</a>
         </div>
       </div>
@@ -120,7 +121,7 @@ function MyFooter() {
         <ul className='navbar-nav nav-justified w-100'>
           <li className='nav-item'>
             <a href='/' className='nav-link' style={{ fontSize: "x-large" }}>
-              <i className='fa-solid fa-house' />
+              <FontAwesomeIcon icon={faHouse} />
             </a>
           </li>
         </ul>
@@ -129,28 +130,28 @@ function MyFooter() {
         <ul className='navbar-nav nav-justified w-100'>
           <li className='nav-item'>
             <a href='/' className='nav-link home-link' style={{ fontSize: "x-large" }}>
-              <i id='home-icon' className='fa-solid fa-home' />
+              <FontAwesomeIcon icon={faHouse} />
             </a>
           </li>
           <li className='nav-item'>
             <a href='/search' className='nav-link search-link' style={{ fontSize: "x-large" }}>
-              <i id='search-icon' className='fa-solid fa-magnifying-glass' />
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
             </a>
           </li>
           <li className='nav-item'>
-            <button className='nav-link text-white' style={{ fontSize: "x-large" }}>
-              <i id='plus-icon' className='fa-solid fa-plus' />
+            <button className='nav-link text-light bg-transparent border-0' style={{ fontSize: "x-large" }}>
+              <FontAwesomeIcon icon={faPlus} />
             </button>
           </li>
           <li className='nav-item'>
-            <a id='notifbtn' href='/notification' className='nav-link notification-link text-white position-relative' style={{ fontSize: "x-large" }}>
+            <a id='notifbtn' href='/notification' className='nav-link notification-link position-relative' style={{ fontSize: "x-large" }}>
               <span id='notif-dot' className='notif-dot position-absolute top-0 start-0' />
-              <i id='bell-icon' className='fa-solid fa-bell bell-icon' />
+              <FontAwesomeIcon icon={faBell} />
             </a>
           </li>
           <li className='nav-item'>
             <a href='#' id='myDetails' className='nav-link profile-link' style={{ fontSize: "x-large" }}>
-              <i id='user-icon' className='fa-solid fa-user' />
+              <FontAwesomeIcon icon={faUser} />
             </a>
           </li>
         </ul>
