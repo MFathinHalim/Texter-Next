@@ -11,10 +11,10 @@ if (!MONGODBURI) {
 
 // Set strict mode globally
 mongoose.set("strict", false);
-
+//@ts-ignore
 let cached = global.mongoose;
 
-if (!cached) {
+if (!cached) {//@ts-ignore
   cached = global.mongoose = { conn: null, promise: null };
 }
 
@@ -27,7 +27,7 @@ async function dbConnect() {
     const opts = {
       bufferCommands: false,
     };
-
+    //@ts-ignore
     cached.promise =  mongoose.connect(MONGODBURI, opts).then((mongoose) => {
       return mongoose;
     });
