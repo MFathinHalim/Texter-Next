@@ -99,7 +99,6 @@ class Users {
       if (!user) {
         return this.#error[1]; // User not found or banned
       }
-
       const isPasswordValid = await bcrypt.compare(btoa(password), user.password || ""); //? check apakah passwordnya sesuai
       if (!isPasswordValid) return this.#error[1]; // Invalid password
 

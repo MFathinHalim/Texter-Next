@@ -131,8 +131,8 @@ function MyHeader() {
 
   return (
     <>
-      <div className='d-flex flex-column mt-0 pt-0 fixed-on-navbar' style={{ height: "100vh", overflowY: "auto" }}>
-        <div className='card border-0 bg-dark text-white rounded-0 d-none d-lg-flex post' style={{ flexGrow: 1 }}>
+      <div className='d-flex flex-column mt-0 pt-0 position-fixed' style={{ overflowY: "auto" }}>
+        <div className='card border-0 bg-dark text-white rounded-0 d-none d-lg-flex post' >
           <>
             <div className='card-body p-0'>
               <div>

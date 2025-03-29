@@ -9,6 +9,7 @@ import { store } from "@/store/store";
 import MyHeader from "@/components/Header";
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/globals.css'; // Pastikan ini diimpor setelah Bootstrap
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 

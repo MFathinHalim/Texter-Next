@@ -21,15 +21,15 @@ declare type userType = {
   };
   
   declare type postType = {
-    id: string;
+    id?: string;
     title: string;
-    time: string;
-    user: userType;
-    like: {
+    time?: string;
+    user?: userType;
+    like?: {
       total: number;
       users: any;
     };
-    replyTo: string | postType;
+    replyTo?: string | postType;
     img?: string;
     repost?: userType | undefined;
     ogId?: string;

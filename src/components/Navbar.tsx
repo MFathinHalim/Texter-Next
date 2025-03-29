@@ -13,7 +13,7 @@ function MyNavbar() {
   const isHomePage = pathName === '/home';
   return (
     <nav
-      className="navbar container navbar-dark sticky-top bg-dark-glass"
+      className="navbar container navbar sticky-top bg-dark-glass"
       style={{ paddingTop: "10px", paddingBottom: "10px" }}
     >
       <a className="navbar-brand ms-3 pb-0" href="/">
