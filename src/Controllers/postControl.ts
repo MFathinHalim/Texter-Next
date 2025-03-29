@@ -577,7 +577,7 @@ class Posts {
   ): Promise<number> {
     //Fungsi ngelike
     return this.#posts
-      .findOne({ id: postId })
+      .findOne({ _id: postId })
       .populate("like.users", "-password") //intinya nyari dulu
       .exec()
       .then(

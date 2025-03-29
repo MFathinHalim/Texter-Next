@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRetweet, faFlag, faHeart, faComment, faShare, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
 
 export default function PostComponent({ post }: any) {
+  const [likeCount, setLikeCount] = useState(post.like.users.length);
+  const [isLiked, setIsLiked] = useState(post.like.users.includes("currentUserId")); // Change based on logged-in user
+
   if (!post || !post.user) return;
 
   // Function to handle image loading error
@@ -15,6 +19,46 @@ export default function PostComponent({ post }: any) {
     const txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value;
+  };
+
+  // Function to handle like button click
+  const handleLike = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      const response = await axios.post(`/api/post/like/${post._id}`, {}, config);
+
+      // Update UI after liking/unliking
+      setLikeCount(response.data.post.like.users.length);
+      setIsLiked(!isLiked);
+    } catch (error) {
+      console.error("Error liking post:", error);
+
+      // If token expired, refresh it and retry
+      if (error.response && error.response.status === 401) {
+        const refreshed = await refreshAccessToken(); // Refresh token function
+        if (refreshed) handleLike(); // Retry like after token refresh
+      }
+    }
+  };
+
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      const response = await axios.post("/api/auth/refresh", { token: refreshToken });
+
+      if (response.data.accessToken) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error refreshing access token:", error);
+      return false;
+    }
   };
 
   const renderTitleWithLinks = (title: string) => {
@@ -31,8 +75,6 @@ export default function PostComponent({ post }: any) {
           </a>
         );
       }
-
-      // Return non-hashtag text as is
       return part;
     });
   };
@@ -75,32 +117,14 @@ export default function PostComponent({ post }: any) {
           ) : (
             <img style={{ borderRadius: "2% !important" }} className='mb-3' src={post.img} alt='Post' onError={handleImageError} />
           ))}
-        {post.reQuote && (
-          <div className='card bg-dark text-white p-2 mb-2 mt-2 border-1 border-secondary'>
-            <a href={`/?id=${post.reQuote.id}`}>
-              <article className='d-flex pt-2 ps-2'>
-                <img className='pfp rounded-circle' src={post.reQuote.user.pp} alt='Profile' />
-                <div className='ms-2'>
-                  <h4 className='mb-0'>{decodeHTML(post.reQuote.user.name)}</h4>
-                  <h5 className='text-secondary'>{post.reQuote.time}</h5>
-                </div>
-              </article>
-              <h3 className='h5 mt-2 ps-3'>{renderTitleWithLinks(post.reQuote.title)}</h3>
-              {post.reQuote.img &&
-                (post.reQuote.img.includes(".mp4") || post.reQuote.img.includes(".ogg") ? (
-                  <video height={450} className='border-light ps-3' loop style={{ borderRadius: "2% !important", width: "100%" }} controls>
-                    <source src={post.reQuote.img} type='video/mp4' />
-                  </video>
-                ) : (
-                  <img className='mb-3 ms-3' src={post.reQuote.img} alt='Requoted Post' onError={handleImageError} />
-                ))}
-            </a>
-          </div>
-        )}
       </a>
       <div className='d-flex'>
-        <button className='btn btn-outline-danger rounded-pill' id={`like-btn-${post.id}`}>
-          <FontAwesomeIcon icon={faHeart} /> {post.like.users.length}
+        <button
+          className={`btn ${isLiked ? "btn-danger" : "btn-outline-danger"} rounded-pill`}
+          id={`like-btn-${post.id}`}
+          onClick={handleLike}
+        >
+          <FontAwesomeIcon icon={faHeart} /> {likeCount}
         </button>
         <a href={`/?id=${post.id}`} className='btn btn-outline-secondary rounded-pill text-black ms-2'>
           <FontAwesomeIcon icon={faComment} />
